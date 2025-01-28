@@ -51,7 +51,7 @@ public class CategorieController {
         try {
             Categorie existCategorie = service.get(code).get();
             service.save(categorie);
-            return new ResponseEntity<Categorie>(HttpStatus.OK);
+            return new ResponseEntity<Categorie>(existCategorie, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -47,7 +47,7 @@ public class ProduitController {
         try {
             Produit existproduit = service.get(produit.getReference()).get();
             service.save(produit);
-            return new ResponseEntity<Produit>(HttpStatus.OK);
+            return new ResponseEntity<Produit>(existproduit, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
