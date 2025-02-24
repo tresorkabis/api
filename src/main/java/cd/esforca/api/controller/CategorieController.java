@@ -32,7 +32,7 @@ public class CategorieController {
     }
 
     @GetMapping("/categories/{code}")
-    public ResponseEntity<Categorie> get(@PathVariable String code) {
+    public ResponseEntity<Categorie> get(@PathVariable(name =  "code") final String code) {
         try {
             Categorie categorie = service.get(code).get();
             return new ResponseEntity<Categorie>(categorie, HttpStatus.OK);
@@ -47,7 +47,7 @@ public class CategorieController {
     }
 
     @PutMapping("/categories/{code}")
-    public ResponseEntity<?> update(@RequestBody Categorie categorie, @PathVariable String code){
+    public ResponseEntity<?> update(@RequestBody Categorie categorie, @PathVariable("code")  final String code){
         try {
             Categorie existCategorie = service.get(code).get();
             service.save(categorie);
