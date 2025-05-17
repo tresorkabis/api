@@ -15,19 +15,19 @@ public class CategorieService {
     @Autowired
     private CategorieRepository repository;
 
-    public List<Categorie> all(){
+    public List<Categorie> all() {
         return repository.findAll();
     }
 
-    public void save(Categorie categorie){
-        repository.save(categorie);
+    public Categorie save(Categorie categorie) {
+        return repository.save(categorie);
     }
 
-    public Optional<Categorie> get(String code){
+    public Optional<Categorie> get(String code) {
         return repository.findById(code);
     }
 
-    public void delete(String code){
+    public void delete(String code) {
         repository.deleteById(code);
     }
 }

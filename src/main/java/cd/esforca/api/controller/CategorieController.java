@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,8 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
-
 @RestController
 public class CategorieController {
 
@@ -27,12 +26,12 @@ public class CategorieController {
     private CategorieService service;
 
     @GetMapping("/categories")
-    public List<Categorie> all(){
+    public List<Categorie> all() {
         return service.all();
     }
 
     @GetMapping("/categories/{code}")
-    public ResponseEntity<Categorie> get(@PathVariable(name =  "code") final String code) {
+    public ResponseEntity<Categorie> get(@PathVariable(name = "code") final String code) {
         try {
             Categorie categorie = service.get(code).get();
             return new ResponseEntity<Categorie>(categorie, HttpStatus.OK);
@@ -42,12 +41,13 @@ public class CategorieController {
     }
 
     @PostMapping("/categories")
-    public void add(@RequestBody Categorie categorie){
-        service.save(categorie);
+    public ResponseEntity<?> add(@RequestBody Categorie categorie) {
+        Categorie c = service.save(categorie);
+        return new ResponseEntity<Categorie>(c, HttpStatus.OK);
     }
 
     @PutMapping("/categories/{code}")
-    public ResponseEntity<?> update(@RequestBody Categorie categorie, @PathVariable("code")  final String code){
+    public ResponseEntity<?> update(@RequestBody Categorie categorie, @PathVariable("code") final String code) {
         try {
             Categorie existCategorie = service.get(code).get();
             service.save(categorie);
@@ -58,8 +58,8 @@ public class CategorieController {
     }
 
     @DeleteMapping("/categories/{code}")
-    public void delete(@PathVariable String code){
+    public void delete(@PathVariable String code) {
         service.delete(code);
     }
-    
+
 }
